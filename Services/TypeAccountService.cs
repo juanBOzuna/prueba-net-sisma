@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 
 namespace BankAPI.Services;
-public class TypeAccountService()
+public class TypeAccountService
 {
     private readonly BankContext _context;
-    public TypeAccountService(BankContext context) : this()
+    public TypeAccountService(BankContext context)
     {
         _context = context;
     }

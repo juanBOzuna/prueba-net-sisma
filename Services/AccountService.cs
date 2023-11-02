@@ -3,12 +3,14 @@ using BankAPI.Data;
 using BankAPI.Data.BanksModals;
 using Microsoft.EntityFrameworkCore;
 
+using BankAPI.Data.DTOs;
+
 
 namespace BankAPI.Services;
-public class AccountService()
+public class AccountService
 {
     private readonly BankContext _context;
-    public AccountService(BankContext context) : this()
+    public AccountService(BankContext context) 
     {
         _context = context;
     }
@@ -24,22 +26,28 @@ public class AccountService()
 
     }
 
-    public async Task<Account> Create(Account account)
+    public async Task<Account> Create(AccountDTO account)
     {
-        _context.Accounts.Add(account);
+        var acc = new Account();
+        
+        acc.AccountType = account.AccountTypeId;
+        acc.Balance= account.Balance;
+        acc.ClientId = account.ClientId;
+
+        _context.Accounts.Add(acc);
         await _context.SaveChangesAsync();
 
-        return account;
+        return acc;
     }
 
-    public async Task Update(Account account)
+    public async Task Update(AccountDTO account)
     {
 
         var ExistingAccount = await GetById(account.Id);
         if (ExistingAccount is not null)
         {
-            ExistingAccount.AccountType = account.AccountType;
-            ExistingAccount.ClientId= account.ClientId;
+            ExistingAccount.AccountType = account.AccountTypeId;
+            ExistingAccount.ClientId = account.ClientId;
             ExistingAccount.Balance = account.Balance;
             _context.SaveChangesAsync();
         }

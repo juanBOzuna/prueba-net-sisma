@@ -9,7 +9,7 @@ public partial class Account
 
     public int AccountType { get; set; }
 
-    public int ClientId { get; set; }
+    public int? ClientId { get; set; }
 
     public decimal Balance { get; set; }
 

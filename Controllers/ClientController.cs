@@ -68,7 +68,8 @@ public class ClientController : ControllerBase
 		else return ClientNotFound(id);
 	}
 
-	public NotFoundObjectResult ClientNotFound(int id)
+    [NonAction]
+    public NotFoundObjectResult ClientNotFound(int id)
 	{
 		return NotFound(new { message = $"el cliente con id = {id} no existe" });
 	}
